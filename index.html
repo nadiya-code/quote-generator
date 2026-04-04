@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>quote-verser</title>
+    <title>quote-verse</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body class="font-serif">
     <nav class="flex justify-between">
-        <div class="mx-2 p-2 text-3xl cursor-pointer">Quote-verser</div>
+        <div class="mx-2 p-2 text-3xl text-pink cursor-pointer">Quote-verse</div>
         <div class="flex justify-around cursor-pointer">
             <a class="mx-2 p-2 text-2xl">Home</a>
             <a class="mx-2  p-2 text-2xl">Explore</a>
@@ -20,9 +20,9 @@
     </nav>
     <main>
         <div class="flex items-center justify-center  gap-4 mx-10 p-2 animate-slide-up">
-            <span class="w-8 h-px bg-pink-400 opacity-60"></span>
-            <p class="uppercase text-pink-400 text-sm tracking-wide cursor-pointer">DAILY WISDOM</p>
-            <span class="w-8 h-px bg-pink-400 opacity-60"></span>
+            <span class="inline-block w-8 h-px bg-pink opacity-60"></span>
+            <p class="uppercase text-pink text-sm tracking-wide cursor-pointer">DAILY WISDOM</p>
+            <span class="inline-block w-8 h-px bg-pink opacity-60"></span>
         </div>
         <h1 class="text-5xl md:text-6xl font-light leading-[1.1] text-ink max-w-3xl mx-auto text-center animate-slide-up cursor-pointer">
         Words that <span class="italic">illuminate</span><br />
@@ -43,9 +43,9 @@
                 <button class="category border p-3 w-fit rounded-md">Philosophy</button>
                 <p class="quote text-2xl">The journey of a thousand miles begins with one step.</p>
                 <span class="flex m-4 justify-center items-center gap-4">
-                    <span class="flex-1  h-px bg-pink-400 opacity-60"></span>
-                    <span class="bg-pink-400 w-3 h-3 rotate-45"></span>
-                    <span class="flex-1  h-px bg-pink-400 opacity-60"></span>
+                    <span class="flex-1  h-px bg-pink opacity-60"></span>
+                    <span class="bg-pink w-3 h-3 rotate-45"></span>
+                    <span class="flex-1  h-px bg-pink opacity-60"></span>
                 </span>
                 <div class="flex m-4">
                     <p class="author-letter inline-flex w-12 h-12 items-center justify-center border-2  rounded-full">L</p>
@@ -55,14 +55,13 @@
                     </div>
                 </div>
                 <div class="flex my-3">
-                    <span class="flex-1 h-px bg-pink-400 opacity-60"></span>
+                    <span class="flex-1 h-px bg-pink opacity-60"></span>
                 </div>
             </div>
-            <div class="m-3"></div>
             <div class="flex justify-between items-center m-4">
                 <div class="flex items-center gap-4">
-                    <button class="border p-3">
-                        <a class="flex justify-center items-center gap-4 ">
+                    <button class="new-quote bg-gradient-to-r from-pink to-blue border-ink p-3">
+                        <a class="flex justify-center items-center gap-4">
                             <i class="fa-solid fa-arrows-rotate text-pink-400"></i>
                             <p class="uppercase">New quote</p>
                         </a>
@@ -75,7 +74,7 @@
                     </button>
                 </div>
                 <div class="flex  items-center gap-4">
-                    <button class="border p-3">
+                    <button class="save border p-3">
                         <a class="flex justify-center items-center gap-4 ">
                             <i class="fa-regular fa-heart text-pink-400"></i>
                             <p class="uppercase">save</p>
@@ -99,12 +98,12 @@
                 <p class="viewed">1</p>
                 Viewed
             </div>
-            <span class=" inline-block w-px h-10 bg-blue-300 opacity-60"></span>
+            <span class="inline-block w-px h-10 bg-blue opacity-60"></span>
             <div class="uppercase flex flex-col  justify-center items-center">
                 <p class="saved">0</p>
                 Saved
             </div>
-            <span class=" inline-block w-px h-10  bg-blue-300 opacity-60"></span>
+            <span class="inline-block w-px h-10  bg-blue opacity-60"></span>
             <div class="uppercase flex flex-col justify-center items-center">
                 <p class="total">40</p>
                 Total
