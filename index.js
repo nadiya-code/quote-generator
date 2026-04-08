@@ -191,7 +191,9 @@ const allquotes=[
 function filterCatergory(type){
     return allquotes.filter(q=>q.type.toLowerCase()===type.toLowerCase());
 };
+
 //pill 
+let home=document.querySelector(".home")
 const category=document.querySelector(".category");
 const quote=document.querySelector(".quote");
 const author_letter=document.querySelector(".author-letter");
@@ -256,3 +258,33 @@ button.forEach((btn) =>{
     });
 });
 //explore
+let explore= document.querySelectorAll(".exploring");
+const quote_grid=document.querySelector(".quote-grid");
+function renderquotes(){
+    quote_grid.innerHTML="";
+    for(let i=0;i<30;i++){
+        let random=allquotes[Math.floor(Math.random()*allquotes.length)];
+        let card=document.createElement("div");
+        card.className="quote-card  flex flex-col text-start border p-[20px] rounded-lg gap-3";
+        card.innerHTML=`
+        <p class=" type text-lg gap-3 w-80 uppercase">${random.type}</p>
+        <p class=" text text-2xl gap-3 w-80">"${random.text}"</p>
+        <p class=" author flex  justify-start items-center text-sm gap-3 w-80"><span class="block bg-blue w-4 h-px"></span>${random.author}</p>`;
+        card.addEventListener("mouseenter",()=>{
+            card.classList.add("border-blue", "animate-slide-up");
+        });
+        card.addEventListener("mouseleave",()=>{
+            card.classList.remove("border-blue", "animate-slide-up");
+        });
+        card.addEventListener("click",()=>{
+            explore.forEach(e => e.classList.add("hidden"));
+            home.classList.remove("hidden");
+            category.innerText=card.querySelector(".type").innerText;
+            quote.innerText=card.querySelector(".text").innerText;
+            author_letter.innerText=card.querySelector(".author").innerText.trim()[0];
+            author_name.innerText=card.querySelector(".author").innerText.trim();
+        });
+        quote_grid.appendChild(card);
+    }
+}
+renderquotes();
