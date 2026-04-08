@@ -7,19 +7,19 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="font-serif">
+<body class=" flex flex-col min-h-screen font-serif">
     <nav class="flex justify-between">
         <div class="mx-2 p-2 text-3xl text-pink cursor-pointer">Quote-verse</div>
         <div class="flex justify-around cursor-pointer">
-            <a href="#home" class="mx-2 p-2 text-2xl">Home</a>
-            <a href="#explore" class="mx-2  p-2 text-2xl">Explore</a>
-            <a href="#authors"class="mx-2 p-2 text-2xl">Authors</a>
-            <a href="#saved" class="mx-2 p-2 text-2xl">Saved</a>
-            <a href="#login"class="mx-2 p-2 text-2xl">login</a>
+            <a href="#home" class="nav-item mx-2 p-2 text-2xl">Home</a>
+            <a href="#explore" class="nav-item mx-2  p-2 text-2xl">Explore</a>
+            <a href="#authors"class="nav-item mx-2 p-2 text-2xl">Authors</a>
+            <a href="#saved" class="nav-item mx-2 p-2 text-2xl">Saved</a>
+            <a href="#login"class="nav-item mx-2 p-2 text-2xl">login</a>
         </div>
     </nav>
-    <main>
-        <div id="home" class="nav ">
+    <main class=" flex-grow">
+        <div id="home" class="home  nav hidden">
             <div class="flex items-center justify-center  gap-4 mx-10 p-2 animate-slide-up">
                 <span class="inline-block w-8 h-px bg-pink opacity-60"></span>
                 <p class="uppercase text-pink text-sm tracking-wide cursor-pointer">DAILY WISDOM</p>
@@ -109,17 +109,15 @@
                 </div>
             </div>
         </div>
-        <div id="explore" class=" hidden flex flex-col nav w-full text-center gap-2">
+        <div id="explore" class=" exploring flex flex-col nav w-full text-center gap-2">
             <h1>Explore Quotes</h1>
             <p>Browse the full collection — click any card to view it</p>
             <span class="block w-full bg-blue h-px opacity-60"></span>
             <div class="flex justify-center items-center border p-3 gap-3 mx-16"> 
                 <i class="fa-solid fa-magnifying-glass w-3"></i> 
-                <input class="w-full text-xl border-none outline-none round-15px" placeholder="search for quotes or authors..."> 
-                <div class="grid grid-cols-2 gap-3">
-                    
-                </div>
+                <input class="search-input w-full text-xl border-none outline-none rounded-[15px]" placeholder="search for quotes or authors..."> 
             </div>
+            <div class="quote-grid grid grid-cols-3  justify-center mx-auto gap-8 p-8"></div>
         </div>
         <div id="authors" class="nav hidden">
 
