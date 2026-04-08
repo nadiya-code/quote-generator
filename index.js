@@ -188,36 +188,32 @@ const allquotes=[
   { type: "Creativity", text: "Creativity is the power to connect the seemingly unconnected.", author: "William Plomer" }
 ];
 //filter function for cartegories
-let count=0;
 function filterCatergory(type){
     return allquotes.filter(q=>q.type.toLowerCase()===type.toLowerCase());
 };
 //pill 
+const category=document.querySelector(".category");
+const quote=document.querySelector(".quote");
+const author_letter=document.querySelector(".author-letter");
+const author_name=document.querySelector(".author-name");
 let pills=document.querySelectorAll(".pill");
 pills.forEach((pill)=>{
     pill.addEventListener("click",()=>{
         pills.forEach(p=>p.classList.remove("pill-active"));
         pill.classList.add("pill-active");
         let filter= filterCatergory(pill.innerText);
-        const category=document.querySelector(".category");
         const type=pill.innerText;
         category.innerText=type;
         if(type.toLowerCase()==="all"){
             const random= allquotes[Math.floor(Math.random() * allquotes.length)];
-            const quote=document.querySelector(".quote");
             quote.innerText=random.text;
-            const author_letter=document.querySelector(".author-letter");
             author_letter.innerText=random.author[0];
-            const author_name=document.querySelector(".author-name");
             author_name.innerText=random.author;
         }
         else{
             const random= filter[Math.floor(Math.random() * filter.length)];
-            const quote=document.querySelector(".quote");
             quote.innerText=random.text;
-            const author_letter=document.querySelector(".author-letter");
             author_letter.innerText=random.author[0];
-            const author_name=document.querySelector(".author-name");
             author_name.innerText=random.author;
         }
     });
@@ -226,29 +222,21 @@ let new_quote=document.querySelector(".new-quote");
 new_quote.addEventListener("click",()=>{
         let pill_active=document.querySelector(".pill-active");
         let filter= filterCatergory(pill_active.innerText);
-        const category=document.querySelector(".category");
         const type=pill_active.innerText;
         category.innerText=type;
         if(type.toLowerCase()==="all"){
             const random= allquotes[Math.floor(Math.random() * allquotes.length)];
-            const quote=document.querySelector(".quote");
             quote.innerText=random.text;
-            const author_letter=document.querySelector(".author-letter");
             author_letter.innerText=random.author[0];
-            const author_name=document.querySelector(".author-name");
             author_name.innerText=random.author;
         }
         else{
             const random= filter[Math.floor(Math.random() * filter.length)];
-            const quote=document.querySelector(".quote");
             quote.innerText=random.text;
-            const author_letter=document.querySelector(".author-letter");
             author_letter.innerText=random.author[0];
-            const author_name=document.querySelector(".author-name");
             author_name.innerText=random.author;
         }
 });
-
 let button=document.querySelectorAll("button");
 button.forEach((btn) =>{
     btn.addEventListener("mouseenter", () => {
@@ -267,4 +255,4 @@ button.forEach((btn) =>{
         void btn.offsetWidth;
     });
 });
-//explo
+//explore
