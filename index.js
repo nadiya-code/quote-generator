@@ -1,4 +1,17 @@
 import "./input.css";
+//navigation
+const navlink=document.querySelectorAll(".nav-item");
+const sections=document.querySelectorAll(".nav");
+navlink.forEach((link)=>{
+    link.addEventListener("click",(e)=>{
+        e.preventDefault();
+        const targetId=link.getAttribute("href").substring(1);
+        sections.forEach((section)=>{
+            section.classList.add("hidden");
+        });
+        document.getElementById(targetId).classList.remove("hidden");
+    });
+});
 //data
 const allquotes=[
     { type:"Philosophy",text:"The unexamined life is not worth living.",author:"Socrates"},
@@ -156,7 +169,7 @@ const allquotes=[
   { type: "Courage", text: "Courage is like a muscle; we strengthen it with use.", author: "Ruth Gordon" },
   { type: "Courage", text: "The man who moves a mountain begins by carrying away small stones.", author: "Confucius" },
   { type: "Courage", text: "Courage is going from failure to failure without losing enthusiasm.", author: "Winston Churchill" },
-   { type: "Creativity", text: "You can’t use up creativity. The more you use, the more you have.", author: "Maya Angelou" },
+  { type: "Creativity", text: "You can’t use up creativity. The more you use, the more you have.", author: "Maya Angelou" },
   { type: "Creativity", text: "Imagination is the beginning of creation.", author: "George Bernard Shaw" },
   { type: "Creativity", text: "Write while the heat is in you.", author: "Henry David Thoreau" },
   { type: "Creativity", text: "The chief enemy of creativity is good sense.", author: "Pablo Picasso" },
@@ -191,9 +204,8 @@ const allquotes=[
 function filterCatergory(type){
     return allquotes.filter(q=>q.type.toLowerCase()===type.toLowerCase());
 };
-
 //pill 
-let home=document.querySelector(".home")
+let home=document.querySelector("#home")
 const category=document.querySelector(".category");
 const quote=document.querySelector(".quote");
 const author_letter=document.querySelector(".author-letter");
@@ -288,3 +300,51 @@ function renderquotes(){
     }
 }
 renderquotes();
+//searching
+function searchQuotes(query){
+    return allquotes.filter(q=>
+        q.type.toLowerCase().includes(query.toLowerCase())||
+        q.text.toLowerCase().includes(query.toLowerCase())||
+        q.author.toLowerCase().includes(query.toLowerCase())
+    );
+}
+const searchInput=document.querySelector(".search-input");
+searchInput.addEventListener("input",()=>{
+    const query=searchInput.value.trim();
+    if(query===""){
+        renderquotes();
+        return
+    };
+    const results=searchQuotes(query);
+    renderSearchResults(results);
+});
+function renderSearchResults(results){
+    quote_grid.innerHTML="";
+    if(results.length===0){
+        quote_grid.innerHTML=`<p>no results found</p>`;
+        return;
+    };
+    results.forEach((q)=>{
+        let card =document.createElement("div");
+        card.className="quote-card  flex flex-col text-start border p-[20px] rounded-lg gap-3";
+        card.innerHTML=`
+        <p class=" type text-lg gap-3 w-80 uppercase">${q.type}</p>
+        <p class=" text text-2xl gap-3 w-80">"${q.text}"</p>
+        <p class=" author flex  justify-start items-center text-sm gap-3 w-80"><span class="block bg-blue w-4 h-px"></span>${q.author}</p>`;
+        card.addEventListener("mouseenter",()=>{
+            card.classList.add("border-blue", "animate-slide-up");
+        });
+        card.addEventListener("mouseleave",()=>{
+            card.classList.remove("border-blue", "animate-slide-up");
+        });
+        card.addEventListener("click",()=>{
+            explore.forEach(e => e.classList.add("hidden"));
+            home.classList.remove("hidden");
+            category.innerText=card.querySelector(".type").innerText;
+            quote.innerText=card.querySelector(".text").innerText;
+            author_letter.innerText=card.querySelector(".author").innerText.trim()[0];
+            author_name.innerText=card.querySelector(".author").innerText.trim();
+        });
+        quote_grid.appendChild(card);
+    })
+};
