@@ -201,9 +201,19 @@ const allquotes=[
   { type: "Creativity", text: "Creativity is the power to connect the seemingly unconnected.", author: "William Plomer" }
 ];
 //filter function for cartegories
-function filterCatergory(type){
+function filterCategory(type){
     return allquotes.filter(q=>q.type.toLowerCase()===type.toLowerCase());
 };
+//for random quote
+function showRandomQuote(type){
+    category.innerText=type;
+        let data=type.toLowerCase()==="all"? allquotes:filterCategory(type);
+        if(data.length===0)return ;
+        let random=data[Math.floor(Math.random()*data.length)];
+        quote.innerText=random.text;
+        author_letter.innerText=random.author[0]; 
+        author_name.innerText=random.author;
+}
 //pill 
 let home=document.querySelector("#home")
 const category=document.querySelector(".category");
@@ -215,41 +225,15 @@ pills.forEach((pill)=>{
     pill.addEventListener("click",()=>{
         pills.forEach(p=>p.classList.remove("pill-active"));
         pill.classList.add("pill-active");
-        let filter= filterCatergory(pill.innerText);
         const type=pill.innerText;
-        category.innerText=type;
-        if(type.toLowerCase()==="all"){
-            const random= allquotes[Math.floor(Math.random() * allquotes.length)];
-            quote.innerText=random.text;
-            author_letter.innerText=random.author[0];
-            author_name.innerText=random.author;
-        }
-        else{
-            const random= filter[Math.floor(Math.random() * filter.length)];
-            quote.innerText=random.text;
-            author_letter.innerText=random.author[0];
-            author_name.innerText=random.author;
-        }
-    });
+        showRandomQuote(type);
+    })
 });
 let new_quote=document.querySelector(".new-quote");
 new_quote.addEventListener("click",()=>{
         let pill_active=document.querySelector(".pill-active");
-        let filter= filterCatergory(pill_active.innerText);
-        const type=pill_active.innerText;
-        category.innerText=type;
-        if(type.toLowerCase()==="all"){
-            const random= allquotes[Math.floor(Math.random() * allquotes.length)];
-            quote.innerText=random.text;
-            author_letter.innerText=random.author[0];
-            author_name.innerText=random.author;
-        }
-        else{
-            const random= filter[Math.floor(Math.random() * filter.length)];
-            quote.innerText=random.text;
-            author_letter.innerText=random.author[0];
-            author_name.innerText=random.author;
-        }
+        let type=pill_active?pill_active.innerText:"All";
+        showRandomQuote(type);
 });
 let button=document.querySelectorAll("button");
 button.forEach((btn) =>{
@@ -345,6 +329,6 @@ function renderSearchResults(results){
             author_letter.innerText=card.querySelector(".author").innerText.trim()[0];
             author_name.innerText=card.querySelector(".author").innerText.trim();
         });
-        quote_grid.appendChild(card);
-    })
-};
+        quote_grid.appendChild(card)
+    });
+}
