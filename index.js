@@ -17,7 +17,7 @@ const allquotes=[
     { type:"Philosophy",text:"The unexamined life is not worth living.",author:"Socrates"},
     { type:"Philosophy",text:"I think, therefore I am.",author:"Rene Descartes"},
     { type:"Philosophy",text:"Happiness is the highest good.",author:"Aristotle"},
-    { type:"Philosophy",text:"To live is to suffer, to survive is to find some meaning in the suffering.",author:" Friedrich Nietzsche"},
+    { type:"Philosophy",text:"To live is to suffer, to survive is to find some meaning in the suffering.",author:"Friedrich Nietzsche"},
     { type:"Philosophy",text:"The only thing I know is that I know nothing.",author:"Socrates"},
     { type:"Philosophy",text:"Man is born free, and everywhere he is in chains.",author:"Jean-Jacques Rousseau"},
     { type:"Philosophy",text:"The life of man is solitary, poor, nasty, brutish, and short.",author:"Thomas Hobbes"},
@@ -332,3 +332,39 @@ function renderSearchResults(results){
         quote_grid.appendChild(card)
     });
 }
+//author
+const author_map={};
+allquotes.forEach(q=>{
+    if(!author_map[q.author]){
+        author_map[q.author]=[];
+    }
+    author_map[q.author].push(q);
+})
+const authors_discovery=document.querySelector(".author-grid");
+function authorrendering(){
+    authors_discovery.innerHTML="";
+    Object.keys(author_map).forEach((author)=>{
+        const count=author_map[author].length;
+        const card=document.createElement("div");
+        card.className="border p-4 rounded-lg cursor-pointer";
+        card.innerHTML=`
+        <p class="inline-flex w-12 h-12 items-center justify-center border-2  rounded-full">${author[0]}</p>
+        <h1>${author}</h1>
+        <p>Theoretical Physicist, 1879–1955</p>
+        <button class="get-authorquotes border p-2 ">${count} quotes</button>
+        `;
+        card.addEventListener("mouseenter",()=>{
+            card.classList.add("border-blue", "animate-slide-up");
+        });
+        card.addEventListener("mouseleave",()=>{
+            card.classList.remove("border-blue", "animate-slide-up");
+        });
+        authors_discovery.appendChild(card);
+        const get_authorquotes=document.querySelector(".get-authorquotes");
+        get_authorquotes.addEventListener("click",()=>{
+            
+        })
+    });
+    
+};
+authorrendering();
