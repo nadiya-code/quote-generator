@@ -220,6 +220,7 @@ const category=document.querySelector(".category");
 const quote=document.querySelector(".quote");
 const author_letter=document.querySelector(".author-letter");
 const author_name=document.querySelector(".author-name");
+const heart=document.querySelector(".heart");
 let pills=document.querySelectorAll(".pill");
 pills.forEach((pill)=>{
     pill.addEventListener("click",()=>{
@@ -227,13 +228,20 @@ pills.forEach((pill)=>{
         pill.classList.add("pill-active");
         const type=pill.innerText;
         showRandomQuote(type);
+        const saveBtn = document.querySelector(".save");
+        if (heart) {
+            heart.classList.remove("fa-solid");
+        }
+        if(saveBtn) {
+            saveBtn.classList.remove("text-pink", "border-pink","saved");
+        }
     })
 });
 let new_quote=document.querySelector(".new-quote");
 new_quote.addEventListener("click",()=>{
-        let pill_active=document.querySelector(".pill-active");
-        let type=pill_active?pill_active.innerText:"All";
-        showRandomQuote(type);
+    let pill_active=document.querySelector(".pill-active");
+    let type=pill_active?pill_active.innerText:"All";
+    showRandomQuote(type);
 });
 let button=document.querySelectorAll("button");
 button.forEach((btn) =>{
@@ -242,16 +250,36 @@ button.forEach((btn) =>{
             btn.classList.add("animate-slide-up","border-ink2","text-ink3");
         }
         else if(btn.classList.contains("save")){
-            btn.classList.add("animate-slide-up","border-pink","text-pink");
+           btn.classList.add("animate-slide-up","border-pink","text-pink");
         }
         else{
             btn.classList.add("animate-slide-up");
         }
     });
     btn.addEventListener("mouseleave", () => {
-        btn.classList.remove("animate-slide-up","border-ink2","border-pink","text-pink","text-ink3");
-        void btn.offsetWidth;
+        if(!btn.classList.contains("saved")){
+            btn.classList.remove("animate-slide-up","border-ink2","border-pink","text-pink","text-ink3");
+            void btn.offsetWidth;
+        }
     });
+    btn.addEventListener("click",()=>{
+        if(btn.classList.contains("save")){
+            if(heart){
+                heart.classList.toggle("fa-solid");
+            }
+            btn.classList.add("animate-slide-up","border-pink","text-pink");
+            btn.classList.toggle("saved");
+        }
+        if(btn.classList.contains("new-quote")){
+            const saveBtn = document.querySelector(".save");
+            if (heart) {
+                heart.classList.remove("fa-solid");
+            }
+            if(saveBtn) {
+                saveBtn.classList.remove("text-pink", "border-pink","saved");
+            }
+        }
+    })
 });
 //explore
 let explore= document.querySelectorAll(".exploring");
@@ -346,11 +374,11 @@ function authorrendering(){
     Object.keys(author_map).forEach((author)=>{
         const count=author_map[author].length;
         const card=document.createElement("div");
-        card.className="border p-4 rounded-lg cursor-pointer";
+        card.className="border p-4 rounded-lg gap-3 cursor-pointer";
         card.innerHTML=`
-        <p class="inline-flex w-12 h-12 items-center justify-center border-2  rounded-full">${author[0]}</p>
-        <h1>${author}</h1>
-        <p>Theoretical Physicist, 1879–1955</p>
+        <p class="inline-flex w-12 h-12 m-3 items-center justify-center border-2  rounded-full">${author[0]}</p>
+        <h1 class="m-3">${author}</h1>
+        <p class="m-3">Theoretical Physicist, 1879–1955</p>
         <button class="get-authorquotes border p-2 ">${count} quotes</button>
         `;
         card.addEventListener("mouseenter",()=>{
@@ -362,7 +390,6 @@ function authorrendering(){
         authors_discovery.appendChild(card);
         const get_authorquotes=document.querySelector(".get-authorquotes");
         get_authorquotes.addEventListener("click",()=>{
-            
         })
     });
     
