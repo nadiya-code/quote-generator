@@ -65,14 +65,14 @@
                             <i class="fa-solid fa-arrows-rotate text-pink-400"></i>
                             <p class="uppercase">New quote</p>
                         </button>
-                        <button class="border p-3 flex justify-center items-center gap-4">
+                        <button class="copy border p-3 flex justify-center items-center gap-4">
                             <i class="fa-regular fa-clone "></i>
                             <p class="uppercase">copy</p>
                         </button>
                     </div>
                     <div class="flex  items-center gap-4">
                         <button class="save border p-3 flex justify-center items-center gap-4">
-                            <i class="fa-regular fa-heart heart text-pink-400"></i>
+                            <i class="fa-regular fa-heart heart text-pink"></i>
                             <p class="uppercase">save</p>
                         </button>
                         <button class="border rounded-full p-3 flex justify-center items-center gap-4">
@@ -83,7 +83,7 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </div> 
             <div class="flex justify-center items-center m-5 gap-2">
                 <div class="uppercase flex flex-col justify-center items-center">
                     <p class="viewed">1</p>
@@ -109,6 +109,9 @@
                 </div>
             </div>
         </div>
+        <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white px-6 py-3 rounded-lg opacity-0 pointer-events-none transition-all duration-300">
+            copied!
+        </div>
         <div id="explore" class=" exploring flex flex-col w-full text-center gap-2 nav hidden">
             <h1>Explore Quotes</h1>
             <p>Browse the full collection — click any card to view it</p>
@@ -126,6 +129,10 @@
             <div class="author-grid grid grid-cols-4 justify-center mx-auto gap-8 p-8 "></div>
         </div>
         <div id="saved" class=" nav hidden">
+            <h1>Saved Quotes</h1>
+            <p>Your personal collection of favourite wisdom</p>
+            <span class="block w-full bg-blue h-px opacity-60"></span>
+            <div class="saved-grid grid grid-cols-2"></div>
         </div>
         <div id="login" class="nav hidden"></div>
     </main>

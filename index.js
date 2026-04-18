@@ -243,6 +243,34 @@ new_quote.addEventListener("click",()=>{
     let type=pill_active?pill_active.innerText:"All";
     showRandomQuote(type);
 });
+//toast
+function showToast(message){
+    const toast = document.getElementById("toast");
+
+    // change message
+    toast.innerText = message;
+
+    // show it
+    toast.classList.remove("opacity-0");
+    toast.classList.add("opacity-100");
+
+    // hide after 2 sec
+    setTimeout(()=>{
+        toast.classList.remove("opacity-100");
+        toast.classList.add("opacity-0");
+    },2000);
+}
+//copy function
+function copyText(btn){
+    const text=`"${quote.innerText}"-${author_name.innerText}`;
+    navigator.clipboard.writeText(text)
+    .then(()=>{
+        showToast("copied!");
+    })
+    .catch(err=>{
+        console.error("Copy failed:", err);
+    });
+}
 let button=document.querySelectorAll("button");
 button.forEach((btn) =>{
     btn.addEventListener("mouseenter", () => {
@@ -269,6 +297,12 @@ button.forEach((btn) =>{
             }
             btn.classList.add("animate-slide-up","border-pink","text-pink");
             btn.classList.toggle("saved");
+            if(btn.classList.contains("saved")){
+                showToast("saved!");
+            }
+            else{
+                showToast("unsaved!");
+            }
         }
         if(btn.classList.contains("new-quote")){
             const saveBtn = document.querySelector(".save");
@@ -278,6 +312,9 @@ button.forEach((btn) =>{
             if(saveBtn) {
                 saveBtn.classList.remove("text-pink", "border-pink","saved");
             }
+        }
+        if(btn.classList.contains("copy")){
+            copyText(btn);
         }
     })
 });
@@ -392,6 +429,5 @@ function authorrendering(){
         get_authorquotes.addEventListener("click",()=>{
         })
     });
-    
 };
 authorrendering();
