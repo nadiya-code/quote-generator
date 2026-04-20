@@ -260,7 +260,9 @@ function showToast(message){
         toast.classList.add("opacity-0");
     },2000);
 }
-//copy function
+//for saved
+let savedQuotes = JSON.parse(localStorage.getItem("savedQuotes")) || [];
+//copy function 
 function copyText(btn){
     const text=`"${quote.innerText}"-${author_name.innerText}`;
     navigator.clipboard.writeText(text)
@@ -290,19 +292,31 @@ button.forEach((btn) =>{
             void btn.offsetWidth;
         }
     });
+    // for saved
     btn.addEventListener("click",()=>{
         if(btn.classList.contains("save")){
             if(heart){
                 heart.classList.toggle("fa-solid");
             }
+            const currentQuote = {
+                type: category.innerText,
+                text: quote.innerText,
+                author: author_name.innerText
+            };
             btn.classList.add("animate-slide-up","border-pink","text-pink");
             btn.classList.toggle("saved");
             if(btn.classList.contains("saved")){
                 showToast("saved!");
+                const alreadySaved = savedQuotes.some(q => q.text === currentQuote.text);
+                if (!alreadySaved) {
+                    savedQuotes.push(currentQuote);
+                }
             }
             else{
+                savedQuotes = savedQuotes.filter(q => q.text !== currentQuote.text);
                 showToast("unsaved!");
             }
+            localStorage.setItem("savedQuotes", JSON.stringify(savedQuotes));
         }
         if(btn.classList.contains("new-quote")){
             const saveBtn = document.querySelector(".save");
@@ -318,7 +332,7 @@ button.forEach((btn) =>{
         }
     })
 });
-//explore
+//explore 
 let explore= document.querySelectorAll(".exploring");
 const quote_grid=document.querySelector(".quote-grid");
 function renderquotes(){
@@ -425,9 +439,29 @@ function authorrendering(){
             card.classList.remove("border-blue", "animate-slide-up");
         });
         authors_discovery.appendChild(card);
-        const get_authorquotes=document.querySelector(".get-authorquotes");
+        const get_authorquotes=card.querySelector(".get-authorquotes");
+        get_authorquotes.addEventListener("mouseenter",()=>{
+            get_authorquotes.classList.add("border-blue", "animate-slide-up");
+        });
+        get_authorquotes.addEventListener("mouseleave",()=>{
+            get_authorquotes.classList.remove("border-blue", "animate-slide-up");
+        });
         get_authorquotes.addEventListener("click",()=>{
-        })
+            const quotes = author_map[author];
+            quote_grid.innerHTML = "";
+            quotes.forEach(q => {
+                let card = document.createElement("div");
+                card.className = "quote-card flex flex-col text-start border p-[20px] rounded-lg gap-3";
+                card.innerHTML = `
+                <p class="type text-lg uppercase">${q.type}</p>
+                <p class="text text-2xl">"${q.text}"</p>
+                <p class="author text-sm">${q.author}</p>`; 
+                quote_grid.appendChild(card);
+            });
+            explore.forEach(e => e.classList.add("hidden"));
+            document.querySelector("#explore").classList.remove("hidden");
+            document.querySelector("#authors").classList.add("hidden");
+        });
     });
 };
 authorrendering();
