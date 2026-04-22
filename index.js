@@ -1,15 +1,23 @@
 import "./input.css";
 //navigation
+//showing section
+function showSection(id) {
+  sections.forEach((section) => {
+    section.classList.add("hidden");
+  });
+
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.remove("hidden");
+  }
+}
 const navlink = document.querySelectorAll(".nav-item");
-const sections = document.querySelectorAll(".nav");
+const sections = document.querySelectorAll(".section");
 navlink.forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
     const targetId = link.getAttribute("href").substring(1);
-    sections.forEach((section) => {
-      section.classList.add("hidden");
-    });
-    document.getElementById(targetId).classList.remove("hidden");
+    showSection(targetId);
     if (targetId === "saved") {
       renderSavedQuotes();
     }
@@ -911,6 +919,10 @@ const allquotes = [
     author: "William Plomer",
   },
 ];
+//clean text
+function cleanText(text) {
+  return text.replace(/^"|"$/g, "").trim();
+}
 //filter function for cartegories
 function filterCategory(type) {
   return allquotes.filter((q) => q.type.toLowerCase() === type.toLowerCase());
@@ -987,13 +999,24 @@ function copyText(btn) {
 }
 //on clicking viewing card in home
 function viewing_card(card){
-    home.classList.remove("hidden");
+    showSection("home")
     category.innerText = card.querySelector(".type").innerText;
-    quote.innerText = card.querySelector(".text").innerText;
+    quote.innerText = cleanText(card.querySelector(".text").innerText);
     author_letter.innerText = card
         .querySelector(".author")
         .innerText.trim()[0];
     author_name.innerText = card.querySelector(".author").innerText.trim();
+    const isSaved = savedQuotes.some(q => cleanText(q.text) === quote.innerText);
+    const saveBtn = document.querySelector(".save");
+    if(isSaved){
+      saveBtn.classList.add("saved", "text-pink", "border-pink");
+      heart.classList.add("fa-solid");
+    }
+    else{
+      saveBtn.classList.remove("saved", "text-pink", "border-pink");
+      heart.classList.remove("fa-solid");
+    }
+
 }
 //function displaying saved quotes
 function renderSavedQuotes() {
@@ -1223,6 +1246,15 @@ function authorrendering() {
                 <p class="type text-lg uppercase">${q.type}</p>
                 <p class="text text-2xl">"${q.text}"</p>
                 <p class="author text-sm">${q.author}</p>`;
+        card.addEventListener("click",()=>{
+          viewing_card(card);
+        });
+        card.addEventListener("mouseenter",()=>{
+          card.classList.add("border-blue", "animate-slide-up");
+        });
+        card.addEventListener("mouseleave",()=>{
+          card.classList.remove("border-blue", "animate-slide-up");
+        });
         quote_grid.appendChild(card);
       });
       explore.forEach((e) => e.classList.add("hidden"));
